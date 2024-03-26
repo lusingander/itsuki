@@ -2,7 +2,7 @@
 name = "itsuki"
 version = "0.1.0"
 edition = "2021"
-description = ""
+description = "macro that defines a simple zero-based sequential enum"
 authors = ["Kyosuke Fujimoto <kyoro.f@gmail.com>"]
 documentation = "https://docs.rs/itsuki/"
 homepage = "https://github.com/lusingander/itsuki"
