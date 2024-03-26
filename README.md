@@ -1,0 +1,5 @@
+# itsuki
+
+## License
+
+MIT
