@@ -22,6 +22,9 @@
 //! assert_eq!(Quintuplets::Yotsuba.prev(), Quintuplets::Miku);
 //! assert_eq!(Quintuplets::Ichika.prev(), Quintuplets::Itsuki);
 //!
+//! assert_eq!(Quintuplets::Miku.val(), 2);
+//! assert_eq!(Quintuplets::Yotsuba.val(), 3);
+//!
 //! assert_eq!(Quintuplets::try_from(0), Ok(Quintuplets::Ichika));
 //! assert_eq!(Quintuplets::try_from(4), Ok(Quintuplets::Itsuki));
 //! assert_eq!(Quintuplets::try_from(5), Err(()));
@@ -106,6 +109,9 @@ fn zero_indexed_enum_parse(input: ParseStream) -> Result<TokenStream> {
                 match self {
                     #( #type_name::#variants => #type_name::#variants_prevs ),*
                 }
+            }
+            pub fn val(&self) -> usize {
+                *self as usize
             }
         }
         impl TryFrom<usize> for #type_name {

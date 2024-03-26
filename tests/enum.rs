@@ -19,8 +19,8 @@ fn test_zero_indexed_enum() {
     assert_eq!(Quintuplets::Yotsuba.prev(), Quintuplets::Miku);
     assert_eq!(Quintuplets::Ichika.prev(), Quintuplets::Itsuki);
 
-    assert_eq!(Quintuplets::Miku as usize, 2);
-    assert_eq!(Quintuplets::Yotsuba as usize, 3);
+    assert_eq!(Quintuplets::Miku.val(), 2);
+    assert_eq!(Quintuplets::Yotsuba.val(), 3);
 
     assert_eq!(Quintuplets::try_from(0), Ok(Quintuplets::Ichika));
     assert_eq!(Quintuplets::try_from(4), Ok(Quintuplets::Itsuki));
