@@ -16,21 +16,32 @@
 //!
 //! assert_eq!(Quintuplets::len(), 5);
 //!
-//! assert_eq!(Quintuplets::Nino.next(), Quintuplets::Miku);
-//! assert_eq!(Quintuplets::Itsuki.next(), Quintuplets::Ichika);
+//! use Quintuplets::*;
 //!
-//! assert_eq!(Quintuplets::Yotsuba.prev(), Quintuplets::Miku);
-//! assert_eq!(Quintuplets::Ichika.prev(), Quintuplets::Itsuki);
+//! assert_eq!(
+//!     Quintuplets::vars_vec(),
+//!     vec![Ichika, Nino, Miku, Yotsuba, Itsuki]
+//! );
+//! assert_eq!(
+//!     Quintuplets::vars_array(),
+//!     [Ichika, Nino, Miku, Yotsuba, Itsuki]
+//! );
 //!
-//! assert_eq!(Quintuplets::Miku.val(), 2);
-//! assert_eq!(Quintuplets::Yotsuba.val(), 3);
+//! assert_eq!(Nino.next(), Miku);
+//! assert_eq!(Itsuki.next(), Ichika);
 //!
-//! assert_eq!(Quintuplets::try_from(0), Ok(Quintuplets::Ichika));
-//! assert_eq!(Quintuplets::try_from(4), Ok(Quintuplets::Itsuki));
+//! assert_eq!(Yotsuba.prev(), Miku);
+//! assert_eq!(Ichika.prev(), Itsuki);
+//!
+//! assert_eq!(Miku.val(), 2);
+//! assert_eq!(Yotsuba.val(), 3);
+//!
+//! assert_eq!(Quintuplets::try_from(0), Ok(Ichika));
+//! assert_eq!(Quintuplets::try_from(4), Ok(Itsuki));
 //! assert_eq!(Quintuplets::try_from(5), Err(()));
 //!
-//! assert_eq!(1.try_into(), Ok(Quintuplets::Nino));
-//! assert_eq!(3.try_into(), Ok(Quintuplets::Yotsuba));
+//! assert_eq!(1.try_into(), Ok(Nino));
+//! assert_eq!(3.try_into(), Ok(Yotsuba));
 //! ```
 //!
 
@@ -99,6 +110,16 @@ fn zero_indexed_enum_parse(input: ParseStream) -> Result<TokenStream> {
         impl #type_name {
             pub fn len() -> usize {
                 #variants_len
+            }
+            pub fn vars_vec() -> Vec<#type_name> {
+                vec![
+                    #(#type_name::#variants),*
+                ]
+            }
+            pub fn vars_array() -> [#type_name; #variants_len] {
+                [
+                    #(#type_name::#variants),*
+                ]
             }
             pub fn next(&self) -> #type_name {
                 match self {
