@@ -1,5 +1,7 @@
 # itsuki
 
+[![Crate Status](https://img.shields.io/crates/v/itsuki.svg)](https://crates.io/crates/itsuki)
+
 macro that defines a simple zero-based sequential enum ⭐️
 
 ## Usage
