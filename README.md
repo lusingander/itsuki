@@ -31,6 +31,12 @@ assert_eq!(Itsuki.next(), Ichika);
 assert_eq!(Yotsuba.prev(), Miku);
 assert_eq!(Ichika.prev(), Itsuki);
 
+assert_eq!(Ichika.next_in(|q| [Miku, Yotsuba].contains(&q)), Miku);
+assert_eq!(Miku.next_in(|q| [Miku, Yotsuba].contains(&q)), Yotsuba);
+
+assert_eq!(Nino.prev_in(|q| [Miku, Yotsuba].contains(&q)), Yotsuba);
+assert_eq!(Yotsuba.prev_in(|q| [Miku, Yotsuba].contains(&q)), Miku);
+
 assert_eq!(Miku.val(), 2);
 assert_eq!(Yotsuba.val(), 3);
 

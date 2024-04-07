@@ -33,6 +33,12 @@
 //! assert_eq!(Yotsuba.prev(), Miku);
 //! assert_eq!(Ichika.prev(), Itsuki);
 //!
+//! assert_eq!(Ichika.next_in(|q| [Miku, Yotsuba].contains(&q)), Miku);
+//! assert_eq!(Miku.next_in(|q| [Miku, Yotsuba].contains(&q)), Yotsuba);
+//!
+//! assert_eq!(Nino.prev_in(|q| [Miku, Yotsuba].contains(&q)), Yotsuba);
+//! assert_eq!(Yotsuba.prev_in(|q| [Miku, Yotsuba].contains(&q)), Miku);
+//!
 //! assert_eq!(Miku.val(), 2);
 //! assert_eq!(Yotsuba.val(), 3);
 //!
@@ -130,6 +136,26 @@ fn zero_indexed_enum_parse(input: ParseStream) -> Result<TokenStream> {
                 match self {
                     #( #type_name::#variants => #type_name::#variants_prevs ),*
                 }
+            }
+            fn next_in<F>(&self, f: F) -> #type_name
+            where
+                F: Fn(#type_name) -> bool,
+            {
+                let mut item = self.next();
+                while !f(item) {
+                    item = item.next();
+                }
+                item
+            }
+            fn prev_in<F>(&self, f: F) -> #type_name
+            where
+                F: Fn(#type_name) -> bool,
+            {
+                let mut item = self.prev();
+                while !f(item) {
+                    item = item.prev();
+                }
+                item
             }
             pub fn val(&self) -> usize {
                 *self as usize
