@@ -163,7 +163,7 @@ fn zero_indexed_enum_parse(input: ParseStream) -> Result<TokenStream> {
         }
         impl TryFrom<usize> for #type_name {
             type Error = ();
-            fn try_from(value: usize) -> Result<Self, Self::Error> {
+            fn try_from(value: usize) -> ::core::result::Result<Self, Self::Error> {
                 match value {
                     #(#variants_ns => Ok(#type_name::#variants),)*
                     _ => Err(()),
