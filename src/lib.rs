@@ -80,3 +80,22 @@ mod internal;
 pub fn zero_indexed_enum(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
     internal::zero_indexed_enum_impl(tokens.into()).into()
 }
+
+/// ```no_run
+/// use itsuki::ZeroIndexedEnum;
+///
+/// #[derive(ZeroIndexedEnum, Debug, Clone, Copy, PartialEq, Eq)]
+/// enum Quintuplets {
+///     Ichika,
+///     Nino,
+///     Miku,
+///     Yotsuba,
+///     Itsuki,
+/// }
+/// ```
+///
+/// And then, impl block same as [`zero_indexed_enum!`] will be generated.
+#[proc_macro_derive(ZeroIndexedEnum)]
+pub fn zero_indexed_enum_derive(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    internal::zero_indexed_enum_derive_impl(tokens.into()).into()
+}

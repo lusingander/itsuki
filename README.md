@@ -6,6 +6,8 @@ macro that defines a simple zero-based sequential enum ⭐️
 
 ## Usage
 
+### Function-like
+
 ```rs
 use itsuki::zero_indexed_enum;
 
@@ -46,6 +48,21 @@ assert_eq!(Quintuplets::try_from(5), Err(()));
 
 assert_eq!(1.try_into(), Ok(Nino));
 assert_eq!(3.try_into(), Ok(Yotsuba));
+```
+
+### Derive
+
+```rs
+use itsuki::ZeroIndexedEnum;
+
+#[derive(ZeroIndexedEnum, Debug, Clone, Copy, PartialEq, Eq)]
+enum Quintuplets {
+    Ichika,
+    Nino,
+    Miku,
+    Yotsuba,
+    Itsuki,
+}
 ```
 
 ## License
