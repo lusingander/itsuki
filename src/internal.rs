@@ -21,6 +21,12 @@ pub(crate) fn zero_indexed_enum_derive_impl(tokens: TokenStream) -> TokenStream 
         .unwrap_or_else(Error::into_compile_error)
 }
 
+pub(crate) fn zero_indexed_enum_impl(tokens: TokenStream) -> TokenStream {
+    zero_indexed_enum_attr_parse
+        .parse2(tokens)
+        .unwrap_or_else(Error::into_compile_error)
+}
+
 fn zero_indexed_enum_parse(input: ParseStream) -> Result<TokenStream> {
     let type_name: Ident = input.parse()?;
     let _: Token![=>] = input.parse()?;
@@ -83,6 +89,47 @@ fn zero_indexed_enum_derive_parse(input: DeriveInput) -> Result<TokenStream> {
     let try_into_impl_block = build_try_into_impl_block(&type_name, &variants_ns, &variants);
 
     let ts = quote! {
+        #impl_block
+        #try_into_impl_block
+    };
+    Ok(ts)
+}
+
+fn zero_indexed_enum_attr_parse(input: ParseStream) -> Result<TokenStream> {
+    let input: DeriveInput = input.parse()?;
+
+    let data_enum: DataEnum = if let syn::Data::Enum(data) = input.data {
+        data
+    } else {
+        return Err(Error::new_spanned(
+            input,
+            "ZeroIndexedEnum only supports enums",
+        ));
+    };
+
+    let type_name = input.ident;
+    let variants: Vec<Ident> = data_enum
+        .variants
+        .iter()
+        .map(ident_from_variant)
+        .collect::<Result<_>>()?;
+    let variants_ns = variants_ns(&variants);
+    let variants_nexts = variants_nexts(&variants);
+    let variants_prevs = variants_prevs(&variants);
+    let variants_len = variants.len();
+
+    let enum_defintion_block = build_enum_defintion_block(&type_name, &variants, &variants_ns);
+    let impl_block = build_impl_block(
+        &type_name,
+        &variants,
+        &variants_nexts,
+        &variants_prevs,
+        variants_len,
+    );
+    let try_into_impl_block = build_try_into_impl_block(&type_name, &variants_ns, &variants);
+
+    let ts = quote! {
+        #enum_defintion_block
         #impl_block
         #try_into_impl_block
     };

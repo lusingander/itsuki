@@ -99,3 +99,25 @@ pub fn define_zero_indexed_enum(tokens: proc_macro::TokenStream) -> proc_macro::
 pub fn zero_indexed_enum_derive(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
     internal::zero_indexed_enum_derive_impl(tokens.into()).into()
 }
+
+/// ```no_run
+/// use itsuki::zero_indexed_enum;
+///
+/// #[zero_indexed_enum]
+/// enum Quintuplets {
+///     Ichika,
+///     Nino,
+///     Miku,
+///     Yotsuba,
+///     Itsuki,
+/// }
+/// ```
+///
+/// And then, impl block and derives same as [`define_zero_indexed_enum!`] will be generated.
+#[proc_macro_attribute]
+pub fn zero_indexed_enum(
+    _attr: proc_macro::TokenStream,
+    item: proc_macro::TokenStream,
+) -> proc_macro::TokenStream {
+    internal::zero_indexed_enum_impl(item.into()).into()
+}

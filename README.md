@@ -65,6 +65,21 @@ enum Quintuplets {
 }
 ```
 
+### Attribute
+
+```rs
+use itsuki::zero_indexed_enum;
+
+#[zero_indexed_enum]
+enum Quintuplets {
+    Ichika,
+    Nino,
+    Miku,
+    Yotsuba,
+    Itsuki,
+}
+```
+
 ## License
 
 MIT
