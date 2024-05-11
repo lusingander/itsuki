@@ -9,7 +9,7 @@ use syn::{
     DataEnum, DeriveInput, Error, Result, Token,
 };
 
-pub(crate) fn zero_indexed_enum_impl(tokens: TokenStream) -> TokenStream {
+pub(crate) fn define_zero_indexed_enum_impl(tokens: TokenStream) -> TokenStream {
     zero_indexed_enum_parse
         .parse2(tokens)
         .unwrap_or_else(Error::into_compile_error)

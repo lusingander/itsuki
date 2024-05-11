@@ -3,9 +3,9 @@
 //! # Examples
 //!
 //! ```
-//! use itsuki::zero_indexed_enum;
+//! use itsuki::define_zero_indexed_enum;
 //!
-//! zero_indexed_enum! {
+//! define_zero_indexed_enum! {
 //!     Quintuplets => [Ichika, Nino, Miku, Yotsuba, Itsuki]
 //! }
 //!
@@ -55,9 +55,9 @@ mod internal;
 
 /// Declare the enum type and variables as shown below:
 /// ```no_run
-/// use itsuki::zero_indexed_enum;
+/// use itsuki::define_zero_indexed_enum;
 ///
-/// zero_indexed_enum! {
+/// define_zero_indexed_enum! {
 ///     Quintuplets => [Ichika, Nino, Miku, Yotsuba, Itsuki]
 /// }
 /// ```
@@ -77,8 +77,8 @@ mod internal;
 /// }
 /// ```
 #[proc_macro]
-pub fn zero_indexed_enum(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
-    internal::zero_indexed_enum_impl(tokens.into()).into()
+pub fn define_zero_indexed_enum(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
+    internal::define_zero_indexed_enum_impl(tokens.into()).into()
 }
 
 /// ```no_run
@@ -94,7 +94,7 @@ pub fn zero_indexed_enum(tokens: proc_macro::TokenStream) -> proc_macro::TokenSt
 /// }
 /// ```
 ///
-/// And then, impl block same as [`zero_indexed_enum!`] will be generated.
+/// And then, impl block same as [`define_zero_indexed_enum!`] will be generated.
 #[proc_macro_derive(ZeroIndexedEnum)]
 pub fn zero_indexed_enum_derive(tokens: proc_macro::TokenStream) -> proc_macro::TokenStream {
     internal::zero_indexed_enum_derive_impl(tokens.into()).into()

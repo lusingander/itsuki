@@ -9,9 +9,9 @@ macro that defines a simple zero-based sequential enum ⭐️
 ### Function-like
 
 ```rs
-use itsuki::zero_indexed_enum;
+use itsuki::define_zero_indexed_enum;
 
-zero_indexed_enum! {
+define_zero_indexed_enum! {
     Quintuplets => [Ichika, Nino, Miku, Yotsuba, Itsuki]
 }
 
