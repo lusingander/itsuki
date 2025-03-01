@@ -181,7 +181,7 @@ fn build_impl_block(
                     #( #type_name::#variants => #type_name::#variants_prevs ),*
                 }
             }
-            fn next_in<F>(&self, f: F) -> #type_name
+            pub fn next_in<F>(&self, f: F) -> #type_name
             where
                 F: Fn(#type_name) -> bool,
             {
@@ -191,7 +191,7 @@ fn build_impl_block(
                 }
                 item
             }
-            fn prev_in<F>(&self, f: F) -> #type_name
+            pub fn prev_in<F>(&self, f: F) -> #type_name
             where
                 F: Fn(#type_name) -> bool,
             {
